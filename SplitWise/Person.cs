@@ -10,14 +10,9 @@ namespace SplitWise
     {
         public double Amount { get; set; }
 
+        public string Name { get; set; }
+
         readonly IStringParser _stringParser;
-
-        
-        public void AddExpense(string statement)
-        {
-            Expense expense = _stringParser.Parse(statement);
-
-        }
 
         public void AddExpense(Expense expense)
         {
@@ -29,6 +24,23 @@ namespace SplitWise
             {
                 expense.Participants[i].Amount = expense.Participants[i].Amount - dividedAmount;
             }
+        }
+
+        public string ShowOutStanding()
+        {
+            if (Amount < 0)
+            {
+                return string.Format("Has to give {0}", -Amount);
+            }
+            else
+            {
+                return string.Format("Gets {0}", Amount);
+            }
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

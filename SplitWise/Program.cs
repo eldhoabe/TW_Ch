@@ -10,23 +10,45 @@ namespace SplitWise
     {
         static void Main(string[] args)
         {
+
+            const string filePath = @"D:\A.txt";
+
+
+            var s = new StringParser();
+            s.Parse("fds");
+
             var A = new Person();
+            A.Name = "A";
 
             var B = new Person();
+            B.Name = "B";
 
             var C = new Person();
+            C.Name = "C";
 
             var D = new Person();
+            D.Name = "D";
 
-            var exp = new Expense();
+            var E = new Person();
+            E.Name = "E";
+            //var exp = new Expense();
 
-            A.AddExpense(new Expense { AmountSpent = 100, SpentBy = A, Participants = new[] { A, B, C, D } });
-            B.AddExpense(new Expense { AmountSpent = 500, SpentBy = B, Participants = new[] {  C, D } });
-            D.AddExpense(new Expense { AmountSpent = 300, SpentBy = B, Participants = new[] { A, B } });
+            A.AddExpense(new Expense { AmountSpent = 100,  Participants = new[] { A, B,C,D,E } });
+            B.AddExpense(new Expense { AmountSpent = 500,  Participants = new[] { C, D } });
+            //D.AddExpense(new Expense { AmountSpent = 300,  Participants = new[] { A, B } });
 
-            exp.Add(new Expense { AmountSpent = 100, SpentBy = A, Participants = new[] {A, B, C, D } });
 
-            
+
+            Person[] persons = new[] { A, B, C, D,E };
+
+            foreach (var item in persons)
+            {
+                item.ToString();
+                Console.WriteLine(item.ToString() +"  " +item.ShowOutStanding());
+            }
+
+            Console.ReadKey();
+
         }
     }
 }
