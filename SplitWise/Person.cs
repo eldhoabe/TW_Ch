@@ -12,20 +12,6 @@ namespace SplitWise
 
         public string Name { get; set; }
 
-        readonly IStringParser _stringParser;
-
-        public void AddExpense(Expense expense)
-        {
-            Amount = Amount + expense.AmountSpent;
-
-            var dividedAmount = expense.AmountSpent / expense.Participants.Count();
-
-            for (int i = 0; i < expense.Participants.Count; i++)
-            {
-                expense.Participants[i].Amount = expense.Participants[i].Amount - dividedAmount;
-            }
-        }
-
         public string ShowOutStanding()
         {
             if (Amount < 0)

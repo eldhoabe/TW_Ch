@@ -15,18 +15,18 @@ namespace SplitWise
         /// <param name="statements"></param>
         /// <returns></returns>
         List<Expense> Parse(IList<string> statements);
-        Expense Parse(string statement);
     }
+
 
     public class StringParser : IStringParser
     {
         const string omitWord = "And";
 
-        public List<Person> GlobalPersons { get; set; }
+        List<Person> GlobalPersons { get; set; }
 
         public StringParser()
         {
-            GlobalPersons = new List<SplitWise.Person>();
+            GlobalPersons = new List<Person>();
         }
 
         /// <summary>
@@ -45,45 +45,35 @@ namespace SplitWise
             return expenses;
         }
 
-        public Expense Parse(string statement)
+        private Expense Parse(string statement)
         {
             string[] splittedText = statement.Split(' ');
 
             string personSpent = splittedText[0];
             double amount = double.Parse(splittedText[2]);
 
-            var persons = new List<Person>();
+            var participants = new List<Person>();
+
             for (int i = 5; i < splittedText.Length; i++)
             {
                 if (!splittedText[i].Contains(omitWord))
                 {
-                    UpdateGlobalList(splittedText[i].TrimEnd(','));
-                    //GlobalPersons.Add(FindPersonByName(GlobalPersons, splittedText[i].TrimEnd(',')));
-                    persons.Add(Update(splittedText[i].TrimEnd(',')));
-                }
+                    AddToGlobalPeople(splittedText[i].TrimEnd(','));
 
+                    participants.Add(GetPerson(splittedText[i].TrimEnd(',')));
+                }
             }
 
             return new Expense
             {
-                SpentBy = FindPersonByName(GlobalPersons, personSpent),
+                SpentBy = GetPerson(personSpent),
                 AmountSpent = amount,
-                Participants = persons,
-
+                Participants = participants,
             };
         }
 
-        Person FindPersonByName(List<Person> Persons, string name)
-        {
-            var person = Persons.FirstOrDefault(h => h.Name == name);
 
-            if (person == null)
-                return new Person { Name = name };
-
-            return person;
-        }
-
-        Person Update(string name)
+        Person GetPerson(string name)
         {
             var person = GlobalPersons.FirstOrDefault(h => h.Name == name);
 
@@ -94,14 +84,13 @@ namespace SplitWise
         }
 
 
-        void UpdateGlobalList(string name)
+        void AddToGlobalPeople(string name)
         {
             var person = GlobalPersons.FirstOrDefault(h => h.Name == name);
 
             if (person == null)
                 GlobalPersons.Add(new Person { Name = name });
 
-            // return person;
         }
 
     }

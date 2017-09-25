@@ -23,17 +23,17 @@ namespace SplitWise
 
 
 
-            foreach (var item in expenses)
+            foreach (var expense in expenses)
             {
-                item.AddExpense(item);
+                expense.AddExpense(expense);
             }
 
 
             var peoples = expenses.SelectMany(h => h.Participants.Select(p => p)).Distinct();
 
-            foreach (var item in peoples)
+            foreach (var people in peoples)
             {
-                Console.WriteLine(item.ShowOutStanding());
+                Console.WriteLine(people.ShowOutStanding());
             }
 
             Console.ReadKey();
