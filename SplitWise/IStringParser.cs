@@ -22,11 +22,11 @@ namespace SplitWise
     {
         const string omitWord = "And";
 
-        public List<Person> Persons { get; set; }
+        public List<Person> GlobalPersons { get; set; }
 
         public StringParser()
         {
-            Persons = new List<SplitWise.Person>();
+            GlobalPersons = new List<SplitWise.Person>();
         }
 
         /// <summary>
@@ -57,14 +57,16 @@ namespace SplitWise
             {
                 if (!splittedText[i].Contains(omitWord))
                 {
-                    persons.Add(FindPersonByName(persons, splittedText[i].TrimEnd(',')));
+                    UpdateGlobalList(splittedText[i].TrimEnd(','));
+                    //GlobalPersons.Add(FindPersonByName(GlobalPersons, splittedText[i].TrimEnd(',')));
+                    persons.Add(Update(splittedText[i].TrimEnd(',')));
                 }
 
             }
 
             return new Expense
             {
-                SpentBy = FindPersonByName(persons, personSpent),
+                SpentBy = FindPersonByName(GlobalPersons, personSpent),
                 AmountSpent = amount,
                 Participants = persons,
 
@@ -81,15 +83,25 @@ namespace SplitWise
             return person;
         }
 
-
-        Person FindPersonByName(string name)
+        Person Update(string name)
         {
-            var person = Persons.FirstOrDefault(h => h.Name == name);
+            var person = GlobalPersons.FirstOrDefault(h => h.Name == name);
 
             if (person == null)
                 return new Person { Name = name };
 
             return person;
+        }
+
+
+        void UpdateGlobalList(string name)
+        {
+            var person = GlobalPersons.FirstOrDefault(h => h.Name == name);
+
+            if (person == null)
+                GlobalPersons.Add(new Person { Name = name });
+
+            // return person;
         }
 
     }

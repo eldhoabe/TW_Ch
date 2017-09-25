@@ -13,8 +13,8 @@ namespace SplitWise
             List<string> inputs = new List<string>
             {
                 "A spent 100 snacks for A, B, C, And D",
-                //"B spent 500 snacks for C And D",
-                //"D spent 300 snacks for A And B",
+                "B spent 500 snacks for C And D",
+                "D spent 300 snacks for A And B",
             };
 
 

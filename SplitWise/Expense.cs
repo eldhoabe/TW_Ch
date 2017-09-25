@@ -18,7 +18,7 @@ namespace SplitWise
 
         public void AddExpense(Expense expense)
         {
-            SpentBy.Amount = expense.AmountSpent;
+            SpentBy.Amount = SpentBy.Amount + expense.AmountSpent;
             double dividedAmount = expense.AmountSpent / expense.Participants.Count();
 
             for (int i = 0; i < expense.Participants.Count; i++)
