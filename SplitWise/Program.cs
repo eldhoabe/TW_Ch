@@ -21,19 +21,17 @@ namespace SplitWise
             IStringParser parser = new StringParser();
             List<Expense> expenses = parser.Parse(inputs);
 
-
-
             foreach (var expense in expenses)
             {
                 expense.AddExpense(expense);
             }
 
 
-            var peoples = expenses.SelectMany(h => h.Participants.Select(p => p)).Distinct();
+            var persons = expenses.SelectMany(h => h.Participants.Select(p => p)).Distinct();
 
-            foreach (var people in peoples)
+            foreach (var person in persons)
             {
-                Console.WriteLine(people.ShowOutStanding());
+                Console.WriteLine(person.ShowOutStanding());
             }
 
             Console.ReadKey();

@@ -14,6 +14,11 @@ namespace SplitWise
 
         public Person SpentBy { get; set; }
 
+        public Expense()
+        {
+            SpentBy = new SplitWise.Person();
+        }
+
 
 
         public void AddExpense(Expense expense)

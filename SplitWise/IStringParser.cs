@@ -47,29 +47,36 @@ namespace SplitWise
 
         private Expense Parse(string statement)
         {
-            string[] splittedText = statement.Split(' ');
-
-            string personSpent = splittedText[0];
-            double amount = double.Parse(splittedText[2]);
-
-            var participants = new List<Person>();
-
-            for (int i = 5; i < splittedText.Length; i++)
+            try
             {
-                if (!splittedText[i].Contains(omitWord))
+                string[] splittedText = statement.Split(' ');
+
+                string personSpent = splittedText[0];
+                double amount = double.Parse(splittedText[2]);
+
+                var participants = new List<Person>();
+
+                for (int i = 5; i < splittedText.Length; i++)
                 {
-                    AddToGlobalPeople(splittedText[i].TrimEnd(','));
+                    if (!splittedText[i].Contains(omitWord))
+                    {
+                        AddToGlobalPeople(splittedText[i].TrimEnd(','));
 
-                    participants.Add(GetPerson(splittedText[i].TrimEnd(',')));
+                        participants.Add(GetPerson(splittedText[i].TrimEnd(',')));
+                    }
                 }
-            }
 
-            return new Expense
+                return new Expense
+                {
+                    SpentBy = GetPerson(personSpent),
+                    AmountSpent = amount,
+                    Participants = participants,
+                };
+            }
+            catch (FormatException exception)
             {
-                SpentBy = GetPerson(personSpent),
-                AmountSpent = amount,
-                Participants = participants,
-            };
+                throw;
+            }
         }
 
 
