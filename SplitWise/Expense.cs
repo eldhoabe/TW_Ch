@@ -16,8 +16,6 @@ namespace SplitWise
             SpentBy = new SplitWise.Person();
         }
 
-
-
         public void AddExpense(Expense expense)
         {
             SpentBy.Amount = SpentBy.Amount + expense.AmountSpent;
@@ -27,7 +25,6 @@ namespace SplitWise
             {
                 expense.Participants[i].Amount = expense.Participants[i].Amount - dividedAmount;
             }
-
         }
 
     }

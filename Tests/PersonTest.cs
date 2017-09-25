@@ -9,41 +9,38 @@ namespace Tests
     [TestClass]
     public class PersonTest
     {
+        
+
         [TestMethod]
-        public void AddExpense_OwesAmountIsEqualToPartipantShare_BothShouldBeEqual()
+        public void ShowOutstanding_NegativeAmount_ShowOwesMessage()
         {
-            var particpant1 = new Person();
-            var particpant2 = new Person();
-            var spender = new Person();
+            var person = new Person();
+            person.Name = "A";
+            person.Amount = -75;
+
+            string expectedMessge = string.Format("{0} Has to give {1}", person.Name, -person.Amount);
             
-
-            var expenseModel = new Expense { AmountSpent = 100, SpentBy = spender, Participants = new List<Person> { particpant1, particpant2 } };
-
             //Act
-            var exp = new Expense();
-            exp.AddExpense(expenseModel);
+            string message = person.ShowOutStanding();
 
             //Assert
-            Assert.IsTrue(exp.SpentBy.Amount.Equals(expenseModel.Participants.Sum(h => -h.Amount)));
+            Assert.AreEqual(expectedMessge, message, "Failed to return expected message");
         }
 
-
         [TestMethod]
-        public void AddExpense_ParticipantAndSpenderInList_BothShouldBeEqual1()
+        public void ShowOutstanding_PositiveAmount_ShowOwesMessage()
         {
-            var particpant1 = new Person();
-            var particpant2 = new Person();
+            var person = new Person();
+            person.Name = "A";
+            person.Amount = 75;
 
-            var spender = new Person();
-
-            var expenseModel = new Expense { AmountSpent = 10, SpentBy = spender, Participants = new List<Person> { particpant1, particpant2 ,spender} };
+            string expectedMessge = string.Format("{0} Gets {1}", person.Name, person.Amount);
 
             //Act
-            var exp = new Expense();
-            exp.AddExpense(expenseModel);
+            string message = person.ShowOutStanding();
 
             //Assert
-            Assert.IsTrue(exp.SpentBy.Amount.Equals(expenseModel.Participants.Sum(h => -h.Amount)));
+            Assert.AreEqual(expectedMessge, message, "Failed to return expected message");
         }
     }
 }
