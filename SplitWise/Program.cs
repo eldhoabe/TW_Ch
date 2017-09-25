@@ -10,41 +10,30 @@ namespace SplitWise
     {
         static void Main(string[] args)
         {
-
-            const string filePath = @"D:\A.txt";
-
-
-            var s = new StringParser();
-            s.Parse("fds");
-
-            var A = new Person();
-            A.Name = "A";
-
-            var B = new Person();
-            B.Name = "B";
-
-            var C = new Person();
-            C.Name = "C";
-
-            var D = new Person();
-            D.Name = "D";
-
-            var E = new Person();
-            E.Name = "E";
-            //var exp = new Expense();
-
-            A.AddExpense(new Expense { AmountSpent = 100,  Participants = new[] { A, B,C,D,E } });
-            B.AddExpense(new Expense { AmountSpent = 500,  Participants = new[] { C, D } });
-            //D.AddExpense(new Expense { AmountSpent = 300,  Participants = new[] { A, B } });
-
-
-
-            Person[] persons = new[] { A, B, C, D,E };
-
-            foreach (var item in persons)
+            List<string> inputs = new List<string>
             {
-                item.ToString();
-                Console.WriteLine(item.ToString() +"  " +item.ShowOutStanding());
+                "A spent 100 snacks for A, B, C, And D",
+                //"B spent 500 snacks for C And D",
+                //"D spent 300 snacks for A And B",
+            };
+
+
+            IStringParser parser = new StringParser();
+            List<Expense> expenses = parser.Parse(inputs);
+
+
+
+            foreach (var item in expenses)
+            {
+                item.AddExpense(item);
+            }
+
+
+            var peoples = expenses.SelectMany(h => h.Participants.Select(p => p)).Distinct();
+
+            foreach (var item in peoples)
+            {
+                Console.WriteLine(item.ShowOutStanding());
             }
 
             Console.ReadKey();

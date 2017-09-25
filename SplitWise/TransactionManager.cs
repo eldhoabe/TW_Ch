@@ -28,7 +28,15 @@ namespace SplitWise
             _transactions.Add(new Transaction { AmountSpent = 300, Particpiants = new[] { B, D }, SpentBy = C });
         }
 
+        public void AddTransaction()
+        {
+            var transaction = new Transaction();
 
+            foreach (var item in _transactions)
+            {
+                transaction.AddTransaction(item);
+            }
+        }
 
     }
 }

@@ -10,19 +10,22 @@ namespace SplitWise
     {
         public double AmountSpent { get; set; }
 
-        public Person[] Participants { get; set; }
+        public List<Person> Participants { get; set; }
+
+        public Person SpentBy { get; set; }
 
 
 
-        public void Add(Expense expense)
+        public void AddExpense(Expense expense)
         {
             SpentBy.Amount = expense.AmountSpent;
             double dividedAmount = expense.AmountSpent / expense.Participants.Count();
 
-            for (int i = 0; i < expense.Participants.Length; i++)
+            for (int i = 0; i < expense.Participants.Count; i++)
             {
                 expense.Participants[i].Amount = expense.Participants[i].Amount - dividedAmount;
             }
+
         }
 
     }
