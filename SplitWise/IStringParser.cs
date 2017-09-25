@@ -73,10 +73,11 @@ namespace SplitWise
                     Participants = participants,
                 };
             }
-            catch (FormatException exception)
+            catch (FormatException)
             {
-                throw;
+                throw new FormatException("The input is not still in valid format");
             }
+            
         }
 
 
