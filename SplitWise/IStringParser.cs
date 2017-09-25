@@ -51,7 +51,7 @@ namespace SplitWise
             {
                 string[] splittedText = statement.Split(' ');
 
-                string personSpent = splittedText[0];
+                string personName = splittedText[0];
                 double amount = double.Parse(splittedText[2]);
 
                 var participants = new List<Person>();
@@ -68,7 +68,7 @@ namespace SplitWise
 
                 return new Expense
                 {
-                    SpentBy = GetPerson(personSpent),
+                    SpentBy = GetPerson(personName),
                     AmountSpent = amount,
                     Participants = participants,
                 };
