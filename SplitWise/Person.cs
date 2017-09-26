@@ -12,11 +12,11 @@ namespace SplitWise
         {
             if (Amount < 0)
             {
-                return string.Format("{0} Has to give {1}", Name, -Amount);
+                return string.Format("{0} Has to give {1}", Name, Math.Round(-Amount, 2));
             }
             else
             {
-                return string.Format("{0} Gets {1}", Name, Amount);
+                return string.Format("{0} Gets {1}", Name, Math.Round(Amount, 2));
             }
         }
 
