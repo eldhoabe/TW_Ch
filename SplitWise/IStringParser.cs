@@ -20,7 +20,7 @@ namespace SplitWise
 
     public class StringParser : IStringParser
     {
-        const string omitWord = "And";
+        const string ignoreWord = "And";
 
         List<Person> GlobalPersons { get; set; }
 
@@ -58,7 +58,7 @@ namespace SplitWise
 
                 for (int i = 5; i < splittedText.Length; i++)
                 {
-                    if (!splittedText[i].Contains(omitWord))
+                    if (!splittedText[i].Contains(ignoreWord))
                     {
                         AddToGlobalPeople(splittedText[i].TrimEnd(','));
 
@@ -80,7 +80,6 @@ namespace SplitWise
             
         }
 
-
         Person GetPerson(string name)
         {
             var person = GlobalPersons.FirstOrDefault(h => h.Name == name);
@@ -94,7 +93,6 @@ namespace SplitWise
 
             if (person == null)
                 GlobalPersons.Add(new Person { Name = name });
-
         }
 
     }
