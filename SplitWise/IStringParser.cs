@@ -84,10 +84,6 @@ namespace SplitWise
         Person GetPerson(string name)
         {
             var person = GlobalPersons.FirstOrDefault(h => h.Name == name);
-
-            if (person == null)
-                return new Person { Name = name };
-
             return person;
         }
 
